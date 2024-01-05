@@ -44,7 +44,7 @@ impl Component for App {
                     <thead>
                         <tr>
                             <th colspan=31>
-                                {year}
+                                <h2>{year}</h2>
                             </th>
                         </tr>
                     </thead>
