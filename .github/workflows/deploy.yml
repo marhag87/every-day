@@ -1,0 +1,44 @@
+name: Deploy to github pages
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install trunk
+        uses: jetli/trunk-action@v0.4.0
+        with:
+          version: "latest"
+      - name: Add wasm target
+        run: rustup target add wasm32-unknown-unknown
+      - name: Build the app
+        run: trunk build --public-url ${{ github.event.repository.name }} --release
+      - name: Setup pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifacts
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: "./dist"
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to github pages
+        id: deployment
+        uses: actions/deploy-pages@v1
