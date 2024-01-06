@@ -56,10 +56,18 @@ impl Component for App {
                                         {
                                             (1..=days_in_month(year, month)).map(|day| {
                                                 let date = NaiveDate::from_ymd_opt(year, month, day as u32).unwrap();
+                                                let class = "btn btn-success btn-circle btn-lg";
+                                                // Color of circle
                                                 let class = if self.data.get(&date).is_some() {
-                                                    "btn btn-success btn-circle btn-lg"
+                                                    format!("{} btn-success", class)
                                                 } else {
-                                                    "btn btn-light btn-circle btn-lg"
+                                                    format!("{} btn-light", class)
+                                                };
+                                                // Border for today
+                                                let class = if date.ordinal() == now.ordinal() {
+                                                    format!("{} thick-border", class)
+                                                } else {
+                                                    format!("{}", class)
                                                 };
                                                 html!{
                                                     <td onclick={ctx.link().callback(move |_| AppMsg::ToggleDate(date))}>
