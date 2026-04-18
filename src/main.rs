@@ -99,7 +99,7 @@ impl Component for App {
                                         class.push("selected");
                                     }
                                     // Border for today
-                                    if date.ordinal() == self.now.ordinal() {
+                                    if date.ordinal() == self.now.ordinal() && date.year() == self.now.year() {
                                         class.push("today");
                                     }
                                     html!{

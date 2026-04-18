@@ -1,7 +1,33 @@
+:root {
+    --bg-color: #FFFFFF;
+    --text-color: #000000;
+    --text-selected: #FFFFFF;
+    --selected-day: #198754;
+    --selected-day-hover: #157347;
+    --day: #F8F9FA;
+    --day-hover: #D3D4D5;
+    --today-border: #000000;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #121212;
+        --text-color: #C4C7C5;
+        --text-selected: #C4C7C5;
+        --selected-day: #198754;
+        --selected-day-hover: #157347;
+        --day: #2C2C2C;
+        --day-hover: #202020;
+        --today-border: #870000;
+    }
+}
+
 body {
     font-family: "Segoe UI Semibold", system-ui;
     font-weight: 500;
     margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
 
 .container {
@@ -15,6 +41,8 @@ body {
 .title-bar {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .year-selector {
@@ -36,7 +64,7 @@ body {
     width: 30px;
     height: 30px;
     border-radius: 15px;
-    background-color: rgb(248, 249, 250);
+    background-color: var(--day);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,20 +74,20 @@ body {
 }
 
 .day:hover {
-    background-color: rgb(211, 212, 213);
+    background-color: var(--day-hover);
 }
 
 .selected {
-    background-color: rgb(25, 135, 84);
-    color: white;
+    background-color: var(--selected-day);
+    color: var(--text-selected);
 }
 
 .selected:hover {
-    background-color: rgb(21, 115, 71);
+    background-color: var(--selected-day-hover);
 }
 
 .today {
-    border-color: black;
+    border-color: var(--today-border);
     border-width: 1px;
     border-style: solid;
 }
