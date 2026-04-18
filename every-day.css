@@ -12,9 +12,24 @@ body {
     justify-content: center;
 }
 
+.title-bar {
+    display: flex;
+    justify-content: center;
+}
+
+.year-selector {
+    display: flex;
+    align-items: center;
+    width: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .title {
     margin-top: 0;
     font-size: 32px;
+    display: flex;
+    align-content: center;
 }
 
 .day {
@@ -47,4 +62,8 @@ body {
     border-color: black;
     border-width: 1px;
     border-style: solid;
+}
+
+.clickable {
+    cursor: pointer;
 }
