@@ -1,0 +1,50 @@
+body {
+    font-family: "Segoe UI Semibold", system-ui;
+    font-weight: 500;
+    margin: 0;
+}
+
+.container {
+    padding-top: 0;
+    margin-top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.title {
+    margin-top: 0;
+    font-size: 32px;
+}
+
+.day {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: rgb(248, 249, 250);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", system-ui;
+    font-weight: 400;
+    margin: 3px;
+}
+
+.day:hover {
+    background-color: rgb(211, 212, 213);
+}
+
+.selected {
+    background-color: rgb(25, 135, 84);
+    color: white;
+}
+
+.selected:hover {
+    background-color: rgb(21, 115, 71);
+}
+
+.today {
+    border-color: black;
+    border-width: 1px;
+    border-style: solid;
+}

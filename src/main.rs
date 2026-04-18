@@ -2,7 +2,7 @@ use chrono::{Datelike, NaiveDate, Utc};
 use gloo_storage::{LocalStorage, Storage};
 use std::collections::HashMap;
 use yew::prelude::Html;
-use yew::{html, Component};
+use yew::{classes, html, Component};
 
 enum AppMsg {
     ToggleDate(NaiveDate),
@@ -39,47 +39,41 @@ impl Component for App {
         let now = Utc::now().naive_utc();
         let year = now.year();
         html! {
-            <div class="container-xxl text-center">
-                <table class="table table-borderless table-sm">
+            <div class={classes!("container")}>
+                <table>
                     <thead>
                         <tr>
                             <th colspan=31>
-                                <h2>{year}</h2>
+                                <h2 class={classes!("title")}>{year}</h2>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            (1..=12).map(|month|{
-                                html!{
-                                    <tr>
-                                        {
-                                            (1..=days_in_month(year, month)).map(|day| {
-                                                let date = NaiveDate::from_ymd_opt(year, month, day as u32).unwrap();
-                                                let class = "btn btn-success btn-circle btn-lg";
-                                                // Color of circle
-                                                let class = if self.data.get(&date).is_some() {
-                                                    format!("{} btn-success", class)
-                                                } else {
-                                                    format!("{} btn-light", class)
-                                                };
-                                                // Border for today
-                                                let class = if date.ordinal() == now.ordinal() {
-                                                    format!("{} thick-border", class)
-                                                } else {
-                                                    format!("{}", class)
-                                                };
-                                                html!{
-                                                    <td onclick={ctx.link().callback(move |_| AppMsg::ToggleDate(date))}>
-                                                        <button type="button" {class} title={date.ordinal().to_string()}>{day}</button>
-                                                    </td>
-                                                }
-                                            }).collect::<Html>()
-                                        }
-                                    </tr>
-                                }
-                            }).collect::<Html>()
-                        }
+                    for month in 1..=12 {
+                        <tr>
+                            {
+                                (1..=days_in_month(year, month)).map(|day| {
+                                    let date = NaiveDate::from_ymd_opt(year, month, day as u32).unwrap();
+                                    let mut class = classes!("day");
+                                    // Color of circle
+                                    if self.data.get(&date).is_some() {
+                                        class.push("selected");
+                                    }
+                                    // Border for today
+                                    if date.ordinal() == now.ordinal() {
+                                        class.push("today");
+                                    }
+                                    html!{
+                                        <td onclick={ctx.link().callback(move |_| AppMsg::ToggleDate(date))}>
+                                            <div {class}>
+                                                {day}
+                                            </div>
+                                        </td>
+                                    }
+                                }).collect::<Html>()
+                            }
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
